@@ -2,6 +2,9 @@ import "../app/globals.css";
 import Link from "next/link"; 
 import ZodiacSign from "../app/components/Zodiac"; 
 import React, { useEffect, useState } from "react";
+import styles from "../app/components/ZodiacCard.module.css"; 
+
+
 
 const apiURL = "https://binaryjazz.us/wp-json/genrenator/v1/genre/100";
 const jsonFileURL = "https://raw.githubusercontent.com/dariusk/corpora/master/data/divination/zodiac.json";
@@ -32,6 +35,9 @@ function fetchDataFromJSONFile() {
 export default function Home() {
   const [apiData, setApiData] = useState(null);
   const [jsonData, setJsonData] = useState(null);
+  
+
+ 
 
   useEffect(() => {
     Promise.all([fetchDataFromAPI(), fetchDataFromJSONFile()]) //fetching data from both sources
@@ -54,6 +60,7 @@ export default function Home() {
 
 
   if (!apiData || !jsonData) return null;
+
 
   const zodiacSigns = Object.keys(jsonData.western_zodiac); //don't have to do it individually
 
@@ -86,19 +93,21 @@ export default function Home() {
       }
     };
     
+
   
   const userSign = () => {
     const input = prompt("Enter Your Birthday: (MM/DD)"); 
     if (input) {
     const [month, day] = input.split("/").map(Number); 
-
     if (!isNaN(month) && !isNaN(day) && month >= 1 && month <= 12 && day >= 1 && day <= 31) {
       const zodiac = calculateSign(day, month);
       alert(`Your zodiac sign is ${zodiac}. Go check out your recommended music genre`)
+ 
     } else {
-      alert("Invalid date format or out-of-range values. Please enter in MM/DD format.");
+      alert("Invalid. Please enter in MM/DD format.");
     }
   }
+
   }
 
   userSign(); 
@@ -127,21 +136,32 @@ export default function Home() {
 
 
 
+
+
+
   return (
      <>
      
      <main>
+        <div className = {styles.title}>
         <h1>Star Radio</h1>
 
-        <button id="userBirth" onClick={userSign}>Enter your Birthday</button>
+        </div>
+        
+        
+        <button className={styles.button}
+        id="userBirth" onClick={userSign}>Enter your Birthday</button>
         
 
-
+        <div className={styles.ZodiacCardContainer}>
         {zodiacSigns.map(sign => (
-          <Link href={`/${sign}`} key={sign}>
-           
+        
+          //<Link href={`/${sign}`} key={sign}>
+          //<Link href={`/${sign}?jsonData=${JSON.stringify(jsonData)}`} key={sign}>
+
+          
             <ZodiacSign
-             //key={sign}
+              key={sign}
               element={jsonData.western_zodiac[sign].element}
               gloss={jsonData.western_zodiac[sign].gloss}
               symbol={jsonData.western_zodiac[sign].unicode_symbol}
@@ -155,12 +175,14 @@ export default function Home() {
 
               />
 
-
           
-          </Link>
+
+                
+          
+  
         )
       )}
-        
+      </div>
     
         
       
@@ -173,6 +195,15 @@ export default function Home() {
   ); 
 
 } 
+
+
+
+
+
+
+
+
+
 
 
 
