@@ -57,46 +57,48 @@ export default function Home() {
 
   const zodiacSigns = Object.keys(jsonData.western_zodiac); //don't have to do it individually
 
-
-    const calculateZodiacSign = (day, month) => {
+//button
+    const calculateSign = (day, month) => {
       if ((month === 3 && day >= 21) || (month === 4 && day <= 19)) {
-        return "Aries";
+        return "The Ram (Aries)";
       } else if ((month === 4 && day >= 20) || (month === 5 && day <= 20)) {
-        return "Taurus";
+        return "The Bull (Taurus)";
       } else if ((month === 5 && day >= 21) || (month === 6 && day <= 20)) {
-        return "Gemini";
+        return "The Twins (Gemini)";
       } else if ((month === 6 && day >= 21) || (month === 7 && day <= 22)) {
-        return "Cancer";
+        return "The Crab (Cancer)";
       } else if ((month === 7 && day >= 23) || (month === 8 && day <= 22)) {
-        return "Leo";
+        return "The Lion (Leo)";
       } else if ((month === 8 && day >= 23) || (month === 9 && day <= 22)) {
-        return "Virgo";
+        return "The Maiden (Virgo)";
       } else if ((month === 9 && day >= 23) || (month === 10 && day <= 22)) {
-        return "Libra";
+        return "The Scales (Libra)";
       } else if ((month === 10 && day >= 23) || (month === 11 && day <= 21)) {
-        return "Scorpio";
+        return "The Scorpion (Scorpio)";
       } else if ((month === 11 && day >= 22) || (month === 12 && day <= 21)) {
-        return "Sagittarius";
+        return "The Archer (Sagittarius)";
       } else if ((month === 12 && day >= 22) || (month === 1 && day <= 19)) {
-        return "Capricorn";
+        return "The Mountain Sea-goat (Capricorn)";
       } else if ((month === 1 && day >= 20) || (month === 2 && day <= 18)) {
-        return "Aquarius";
+        return "The Water-bearer (Aquarius)";
       } else {
-        return "Pisces";
+        return "The Fish (Pisces)";
       }
     };
     
   
   const userSign = () => {
     const input = prompt("Enter Your Birthday: (MM/DD)"); 
+    if (input) {
     const [month, day] = input.split("/").map(Number); 
 
     if (!isNaN(month) && !isNaN(day) && month >= 1 && month <= 12 && day >= 1 && day <= 31) {
-      const zodiac = calculateZodiacSign(day, month);
-      alert('Your zodiac sign is ${zodiac}. Go check out your recommended music genre')
+      const zodiac = calculateSign(day, month);
+      alert(`Your zodiac sign is ${zodiac}. Go check out your recommended music genre`)
     } else {
       alert("Invalid date format or out-of-range values. Please enter in MM/DD format.");
     }
+  }
   }
 
   userSign(); 
